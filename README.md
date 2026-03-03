@@ -130,6 +130,7 @@ cd block-certificate-verification
 
 ```bash
 cd backend
+ .\.venv\Scripts\Activate
 pip install -r requirements.txt
 uvicorn main:app --reload
 ```
