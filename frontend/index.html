@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CertiChain - Blockchain Certificate Verification</title>
+  <meta name="description" content="A blockchain-based academic certificate verification system. BCA Final Year Project by Sparsh Gaikwad." />
+  <meta name="author" content="Sparsh Gaikwad" />
+  <meta name="keywords" content="blockchain, certificate verification, BCA project, Sparsh Gaikwad, ethereum" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Background Effects -->
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="orb orb3"></div>
+
+  <!-- ======= NAVIGATION ======= -->
+  <nav>
+    <div class="logo">
+      <div class="logo-icon"></div>
+      CertiChain
+    </div>
+    <div class="nav-links">
+      <button class="nav-btn active" onclick="showTab('issue')">Issue</button>
+      <button class="nav-btn" onclick="showTab('verify')">Verify</button>
+      <button class="nav-btn" onclick="showTab('ledger')">Ledger</button>
+      <button class="nav-btn" onclick="showTab('portal')">University</button>
+    </div>
+    <div class="network-badge">
+      <div class="pulse-dot"></div>
+      Ethereum Mainnet
+    </div>
+  </nav>
+
+  <!-- ======= MAIN ======= -->
+  <main>
+
+    <!-- HERO -->
+    <div class="hero">
+      <div class="hero-badge">⛓ Decentralized · Immutable · Verifiable</div>
+      <h1>Certificates on the<br /><span>Blockchain</span></h1>
+      <p>Tamper-proof academic credentials. Instant QR verification.<br />Zero fake certificates — ever.</p>
+    </div>
+
+    <!-- STATS BAR -->
+    <div class="stats-bar">
+      <div class="stat">
+        <span class="stat-num" id="stat-total">0</span>
+        <div class="stat-label">Certificates Issued</div>
+      </div>
+      <div class="stat">
+        <span class="stat-num" id="stat-verified">0</span>
+        <div class="stat-label">Verifications Done</div>
+      </div>
+      <div class="stat">
+        <span class="stat-num" id="stat-universities">0</span>
+        <div class="stat-label">Universities</div>
+      </div>
+      <div class="stat">
+        <span class="stat-num" id="stat-revoked">0</span>
+        <div class="stat-label">Revoked</div>
+      </div>
+    </div>
+
+    <!-- TABS -->
+    <div class="tabs-container">
+      <div class="tabs">
+        <button class="tab active" onclick="showTab('issue')" id="tab-issue">
+          <span class="tab-icon">📜</span> Issue Certificate
+        </button>
+        <button class="tab" onclick="showTab('verify')" id="tab-verify">
+          <span class="tab-icon">🔍</span> Verify
+        </button>
+        <button class="tab" onclick="showTab('ledger')" id="tab-ledger">
+          <span class="tab-icon">⛓</span> Ledger
+        </button>
+        <button class="tab" onclick="showTab('portal')" id="tab-portal">
+          <span class="tab-icon">🏛</span> University Portal
+        </button>
+      </div>
+
+      <!-- ===== ISSUE PANEL ===== -->
+      <div class="panel active" id="panel-issue">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-icon icon-green">📜</div>
+            <div>
+              <h2>Issue New Certificate</h2>
+              <p>Mint a tamper-proof certificate onto the blockchain</p>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="form-grid">
+              <div class="form-group">
+                <label>Student Full Name</label>
+                <input type="text" id="f-name" placeholder="e.g. Aria Johnson" />
+              </div>
+              <div class="form-group">
+                <label>Student ID</label>
+                <input type="text" id="f-sid" placeholder="e.g. STU-2024-001" />
+              </div>
+              <div class="form-group">
+                <label>Degree / Program</label>
+                <input type="text" id="f-degree" placeholder="e.g. B.Sc. Computer Science" />
+              </div>
+              <div class="form-group">
+                <label>University</label>
+                <select id="f-university">
+                  <option value="">Select University</option>
+
+                  <!-- Maharashtra State Universities -->
+                  <option>Savitribai Phule Pune University</option>
+                  <option>University of Mumbai</option>
+                  <option>Shivaji University, Kolhapur</option>
+                  <option>Rashtrasant Tukadoji Maharaj Nagpur University</option>
+                  <option>Sant Gadge Baba Amravati University</option>
+                  <option>Dr. Babasaheb Ambedkar Marathwada University</option>
+                  <option>Kavayitri Bahinabai Chaudhari North Maharashtra University</option>
+                  <option>Punyashlok Ahilyadevi Holkar Solapur University</option>
+                  <option>Gondwana University, Gadchiroli</option>
+                  <option>Kavi Kulguru Kalidas Sanskrit University, Ramtek</option>
+                  <option>Maharashtra University of Health Sciences, Nashik</option>
+                  <option>Maharashtra Animal and Fishery Sciences University, Nagpur</option>
+                  <option>Dr. Babasaheb Ambedkar Technological University, Lonere</option>
+
+                  <!-- Central Institutions in Maharashtra -->
+                  <option>Indian Institute of Technology Bombay (IIT Bombay)</option>
+                  <option>Tata Institute of Social Sciences (TISS)</option>
+                  <option>Tata Institute of Fundamental Research (TIFR)</option>
+
+                  <!-- Deemed Universities -->
+                  <option>Symbiosis International University</option>
+                  <option>Institute of Chemical Technology (ICT), Mumbai</option>
+                  <option>Bharati Vidyapeeth Deemed University</option>
+                  <option>MGM Institute of Health Sciences</option>
+                  <option>MIT World Peace University</option>
+                  <option>Datta Meghe Institute of Higher Education</option>
+
+                  <!-- Private Universities -->
+                  <option>FLAME University, Pune</option>
+                  <option>Vishwakarma University, Pune</option>
+                  <option>Sandip University, Nashik</option>
+                  <option>Ajeenkya D Y Patil University</option>
+                  <option>D Y Patil International University</option>
+                  <option>Amity University Mumbai</option>
+                  <option>Atlas SkillTech University</option>
+                  <option>Chhatrapati Shivaji Maharaj University</option>
+                  <option>DES Pune University</option>
+                  <option>Pillai University, Navi Mumbai</option>
+
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Graduation Year</label>
+                <input type="number" id="f-year" placeholder="2024" min="1990" max="2030" />
+              </div>
+              <div class="form-group">
+                <label>GPA / Grade</label>
+                <input type="text" id="f-gpa" placeholder="e.g. 3.9 / 4.0 or First Class" />
+              </div>
+              <div class="form-group full">
+                <label>Additional Notes (optional)</label>
+                <textarea id="f-notes" placeholder="Honours, distinctions, or special remarks..."></textarea>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button class="btn btn-primary" onclick="issueCertificate()">⛓ Mint to Blockchain</button>
+              <button class="btn btn-secondary" onclick="clearForm()">Clear</button>
+            </div>
+
+            <!-- TX Progress -->
+            <div class="tx-progress" id="tx-progress">
+              <div class="tx-progress-label">Transaction Processing</div>
+              <div class="tx-steps">
+                <div class="tx-step" id="step1"><div class="step-indicator">1</div> Validating certificate data...</div>
+                <div class="tx-step" id="step2"><div class="step-indicator">2</div> Computing SHA-256 hash...</div>
+                <div class="tx-step" id="step3"><div class="step-indicator">3</div> Signing with university key...</div>
+                <div class="tx-step" id="step4"><div class="step-indicator">4</div> Broadcasting to Ethereum network...</div>
+                <div class="tx-step" id="step5"><div class="step-indicator">5</div> Waiting for block confirmation...</div>
+                <div class="tx-step" id="step6"><div class="step-indicator">6</div> Certificate minted successfully!</div>
+              </div>
+            </div>
+
+            <!-- Certificate Result Card -->
+            <div class="cert-result" id="cert-result">
+              <div class="cert-header-strip"></div>
+              <div class="cert-inner">
+                <div class="cert-top">
+                  <div>
+                    <div class="cert-title">Certificate of Completion</div>
+                    <div class="cert-name" id="r-name"></div>
+                    <div class="cert-degree" id="r-degree"></div>
+                  </div>
+                  <div class="cert-seal">🎓</div>
+                </div>
+                <div class="cert-meta">
+                  <div class="meta-item"><label>University</label><span id="r-uni"></span></div>
+                  <div class="meta-item"><label>Year</label><span id="r-year"></span></div>
+                  <div class="meta-item"><label>GPA</label><span id="r-gpa"></span></div>
+                  <div class="meta-item"><label>Certificate ID</label><span id="r-cid"></span></div>
+                  <div class="meta-item"><label>Block Number</label><span id="r-block"></span></div>
+                  <div class="meta-item"><label>Timestamp</label><span id="r-time"></span></div>
+                </div>
+                <div class="cert-hash-row">
+                  <div class="cert-hash-label">Blockchain Hash (SHA-256)</div>
+                  <div id="r-hash"></div>
+                </div>
+                <div class="cert-actions">
+                  <button class="btn btn-primary" onclick="downloadCert()">⬇ Download Certificate</button>
+                  <button class="btn btn-secondary" onclick="showQR()">📱 Show QR Code</button>
+                  <button class="btn btn-secondary" onclick="copyHash()">📋 Copy Hash</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== VERIFY PANEL ===== -->
+      <div class="panel" id="panel-verify">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-icon icon-blue">🔍</div>
+            <div>
+              <h2>Verify Certificate</h2>
+              <p>Instantly check authenticity on the blockchain</p>
+            </div>
+          </div>
+          <div class="card-body">
+            <label class="field-label">Certificate ID or Hash</label>
+            <div class="verify-input-row">
+              <input type="text" id="v-input" placeholder="Enter Certificate ID (e.g. CERT-XXXX) or full SHA-256 hash..." />
+              <button class="btn btn-blue" onclick="verifyCertificate()">🔍 Verify</button>
+            </div>
+
+            <div class="divider">
+              <div class="divider-line"></div>
+              <span class="divider-text">OR SCAN QR CODE</span>
+              <div class="divider-line"></div>
+            </div>
+
+            <div class="scan-center">
+              <button class="btn btn-secondary" onclick="simulateScan()">📷 Simulate QR Scan</button>
+            </div>
+
+            <div class="verify-result" id="verify-result">
+              <div class="verify-status">
+                <div class="status-icon" id="v-icon"></div>
+                <div>
+                  <h3 id="v-title"></h3>
+                  <p id="v-subtitle" class="verify-sub"></p>
+                </div>
+              </div>
+              <div class="verify-details" id="v-details"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== LEDGER PANEL ===== -->
+      <div class="panel" id="panel-ledger">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-icon icon-blue">⛓</div>
+            <div>
+              <h2>Blockchain Ledger</h2>
+              <p>Immutable record of all issued certificates</p>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="ledger-header">
+              <span class="ledger-count" id="ledger-count">0 Records</span>
+              <div class="ledger-controls">
+                <input type="text" id="ledger-search" placeholder="Search by name, ID..." onkeyup="filterLedger()" class="search-input" />
+                <button class="btn btn-secondary btn-sm" onclick="exportLedger()">Export JSON</button>
+              </div>
+            </div>
+            <div id="ledger-list">
+              <div class="ledger-empty">
+                <div class="empty-icon">⛓</div>
+                <p>No certificates on chain yet.<br />Issue the first certificate to get started.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== UNIVERSITY PORTAL PANEL ===== -->
+      <div class="panel" id="panel-portal">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-icon icon-orange">🏛</div>
+            <div>
+              <h2>University Portal</h2>
+              <p>Administrative tools for certificate management</p>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="portal-grid">
+              <div class="portal-stat-card">
+                <div class="psc-num" id="p-total">0</div>
+                <div class="psc-label">Total Issued</div>
+              </div>
+              <div class="portal-stat-card">
+                <div class="psc-num" id="p-this-year">0</div>
+                <div class="psc-label">This Year</div>
+              </div>
+              <div class="portal-stat-card">
+                <div class="psc-num" id="p-revoked">0</div>
+                <div class="psc-label">Revoked</div>
+              </div>
+              <div class="portal-stat-card">
+                <div class="psc-num" id="p-verified">0</div>
+                <div class="psc-label">Verifications</div>
+              </div>
+            </div>
+
+            <div class="revoke-section">
+              <h3 class="section-heading">Revoke Certificate</h3>
+              <div class="revoke-row">
+                <input type="text" id="revoke-input" placeholder="Enter Certificate ID to revoke..." />
+                <button class="btn btn-danger" onclick="revokeCertificate()">🚫 Revoke</button>
+              </div>
+            </div>
+
+            <div class="breakdown-section">
+              <h3 class="section-heading">Certificate Breakdown by University</h3>
+              <div id="uni-breakdown"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /tabs-container -->
+  </main>
+
+  <!-- ======= QR MODAL ======= -->
+  <div class="modal-overlay" id="qr-modal">
+    <div class="modal modal-center">
+      <button class="modal-close" onclick="closeModal('qr-modal')">✕</button>
+      <h2 class="modal-title">QR Verification Code</h2>
+      <p class="modal-subtitle">Scan to verify this certificate instantly</p>
+      <div id="qr-container"></div>
+      <div id="qr-cert-id" class="qr-cert-id"></div>
+      <p class="qr-hint">Scan with any QR reader to open the verification portal</p>
+    </div>
+  </div>
+
+  <!-- ======= DETAIL MODAL ======= -->
+  <div class="modal-overlay" id="detail-modal">
+    <div class="modal">
+      <button class="modal-close" onclick="closeModal('detail-modal')">✕</button>
+      <div id="detail-content"></div>
+    </div>
+  </div>
+
+  <!-- ======= TOAST CONTAINER ======= -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <footer class="site-footer">
+    <div class="footer-divider">
+      <span>◆</span><span class="footer-div-line"></span><span>◆</span>
+    </div>
+
+    <div class="footer-inner">
+
+      <div class="footer-col">
+        <div class="footer-brand">
+          <div class="logo-icon" style="width:20px;height:20px;"></div>
+          CertiChain
+        </div>
+        <p class="footer-about-text">
+          I built this because fake certificates are a real problem — and blockchain is a real solution. Every feature here was coded, broken, debugged, and rebuilt by me.
+        </p>
+      </div>
+
+      <div class="footer-col footer-stack-col">
+        <h4 class="footer-heading">Tech Stack</h4>
+        <ul class="footer-stack">
+          <li><span class="sdot yellow"></span>SHA-256 Hashing</li>
+          <li><span class="sdot blue"></span>Vanilla JS / HTML5</li>
+          <li><span class="sdot green"></span>QR Code API</li>
+          <li><span class="sdot purple"></span>CSS3 Animations</li>
+          <li><span class="sdot orange"></span>Simulated Ethereum Chain</li>
+        </ul>
+      </div>
+
+      <div class="footer-col footer-dev-col">
+        <h4 class="footer-heading">Developer</h4>
+        <div class="dev-card">
+          <div class="dev-avatar">SG</div>
+          <div>
+            <div class="dev-name">Sparsh Gaikwad</div>
+            <div class="dev-meta">BCA Final Year · 2024-25</div>
+            <div class="dev-meta">[ Your College Name ]</div>
+          </div>
+        </div>
+        <div class="dev-links">
+          <a href="https://github.com/sparsh-gaikwad" target="_blank" class="dev-link">⌥ GitHub</a>
+          <a href="mailto:sparshgaikwad231@gmail.com" class="dev-link">✉ Email</a>
+          <a href="https://linkedin.com/in/yourprofile" target="_blank" class="dev-link">in LinkedIn</a>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2025 Sparsh Gaikwad &nbsp;·&nbsp; BCA Final Year Project</span>
+      <span class="footer-credit">Designed &amp; Developed by <strong>Sparsh Gaikwad</strong></span>
+    </div>
+  </footer>
+  <script src="app.js"></script>
+</body>
+</html>
